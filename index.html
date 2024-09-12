@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <div id="display"></div>
+    Test
+    <script>
+        const SERVER = "http://127.0.0.1:5000/";
+
+        // Fetch categories and display in a select dropdown
+        axios(SERVER+"categories").then(res => {
+            display.innerHTML = "<select id='cats' onchange='samp_select()'>" +
+                res.data.map(cat => `<option value="${cat.catid}">${cat.catid} - ${cat.desc}</option>`).join("") +
+                "</select>";
+        });
+
+        // Post selected category to server
+        const samp_select = () => {
+            const selectedValue = cats.value;
+            console.log('Selected Category:', selectedValue);
+            axios(`${SERVER}test/${selectedValue}`)
+        }
+    </script>
+</body>
+
+</html>
